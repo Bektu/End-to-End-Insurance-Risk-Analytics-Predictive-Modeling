@@ -18,7 +18,7 @@ def plot_boxplot(df, column):
 
 def plot_loss_ratio_by_category(loss_ratio_df, category):
     loss_ratio_df.reset_index(inplace=True)
-    sns.barplot(data=loss_ratio_df, x=category, y='LossRatio')
+    sns.barplot(data=loss_ratio_df, x=category, y='lossratio')
     plt.title(f"Loss Ratio by {category}")
     plt.xticks(rotation=45)
     plt.tight_layout()

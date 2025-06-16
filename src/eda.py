@@ -5,8 +5,8 @@ def compute_loss_ratio(df):
 
 def group_loss_ratio(df, groupby_col):
     grouped = df.groupby(groupby_col)[['TotalClaims', 'TotalPremium']].sum()
-    grouped['LossRatio'] = grouped['TotalClaims'] / grouped['TotalPremium']
-    return grouped.sort_values('LossRatio', ascending=False)
+    grouped['lossratio'] = grouped['TotalClaims'] / grouped['TotalPremium']
+    return grouped.sort_values('lossratio', ascending=False)
 
 def get_summary_stats(df, columns):
     return df[columns].describe()
