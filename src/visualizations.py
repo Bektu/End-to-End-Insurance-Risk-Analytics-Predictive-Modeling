@@ -40,11 +40,11 @@ def plot_loss_ratio_by_category(loss_ratio_df, category):
     loss_ratio_df = loss_ratio_df.reset_index()
     
     plt.figure(figsize=(12, 6))
-    sns.barplot(data=loss_ratio_df, x=category, y='lossratio', palette='viridis')
+    sns.barplot(data=loss_ratio_df, x=category, y='LossRatio', palette='viridis')
     plt.title(f"Loss Ratio by {category}")
     plt.xlabel(category)
     plt.ylabel("Loss Ratio")
     plt.xticks(rotation=45, ha='right')
     plt.tight_layout()
-    plt.savefig(f"{PLOT_DIR}/loss_ratio_by_{category}.png")
+    plt.savefig(f"{PLOT_DIR}/Loss_Ratio_by_{category}.png")
     plt.close()

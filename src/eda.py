@@ -1,22 +1,14 @@
 import pandas as pd
 
 def compute_loss_ratio(df):
-    """
-    Calculate overall portfolio loss ratio.
-    Loss Ratio = Total Claims / Total Premium
-    """
-    return df['totalclaims'].astype(float).sum() / df['totalpremium'].astype(float).sum()
-
+    if 'TotalClaims' not in df.columns or 'TotalPremium' not in df.columns:
+        raise KeyError("Expected columns 'TotalClaims' and 'TotalPremium' not found in DataFrame.")
+    return df['TotalClaims'].astype(float).sum() / df['TotalPremium'].astype(float).sum()
 
 def group_loss_ratio(df, groupby_col):
-    """
-    Group by a column and calculate the loss ratio per group.
-    Returns sorted DataFrame by loss ratio descending.
-    """
-    grouped = df.groupby(groupby_col)[['totalclaims', 'totalpremium']].sum()
-    grouped['lossratio'] = grouped['totalclaims'] / grouped['totalpremium'].replace(0, pd.NA)
-    return grouped.sort_values('lossratio', ascending=False)
-
+    grouped = df.groupby(groupby_col)[['TotalClaims', 'TotalPremium']].sum()
+    grouped['LossRatio'] = grouped['TotalClaims'] / grouped['TotalPremium'].replace(0, pd.NA)
+    return grouped.sort_values('LossRatio', ascending=False)
 
 def get_summary_stats(df, columns):
     """

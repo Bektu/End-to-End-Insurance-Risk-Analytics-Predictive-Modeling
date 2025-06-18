@@ -4,3 +4,4 @@ __pycache__/
 *.csv
 .dvc/
 .ipynb_checkpoints/
+.txt
