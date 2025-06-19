@@ -1,14 +1,29 @@
 import pandas as pd
-
 def compute_loss_ratio(df):
-    if 'TotalClaims' not in df.columns or 'TotalPremium' not in df.columns:
-        raise KeyError("Expected columns 'TotalClaims' and 'TotalPremium' not found in DataFrame.")
-    return df['TotalClaims'].astype(float).sum() / df['TotalPremium'].astype(float).sum()
-
+    df['TotalClaims'] = df['TotalClaims'].astype(float)
+    df['TotalPremium'] = df['TotalPremium'].astype(float)
+    return df['TotalClaims'].sum() / df['TotalPremium'].sum()
 def group_loss_ratio(df, groupby_col):
+    # ✅ Convert BEFORE grouping
+    df['TotalClaims'] = pd.to_numeric(df['TotalClaims'], errors='coerce')
+    df['TotalPremium'] = pd.to_numeric(df['TotalPremium'], errors='coerce')
+
+    # ✅ Confirm type conversion (for debug)
+    print("\n🧪 Types after conversion:")
+    print(df[['TotalClaims', 'TotalPremium']].dtypes)
+
+    # ✅ Group
     grouped = df.groupby(groupby_col)[['TotalClaims', 'TotalPremium']].sum()
+
+    # ✅ Confirm grouped dtypes
+    print("\n📊 Types in grouped DataFrame:")
+    print(grouped.dtypes)
+
+    # ✅ Calculate loss ratio safely
     grouped['LossRatio'] = grouped['TotalClaims'] / grouped['TotalPremium'].replace(0, pd.NA)
+
     return grouped.sort_values('LossRatio', ascending=False)
+
 
 def get_summary_stats(df, columns):
     """
