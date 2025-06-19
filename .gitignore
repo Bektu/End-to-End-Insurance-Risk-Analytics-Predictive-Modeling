@@ -1,8 +1,8 @@
 venv/
 __pycache__/
-*.dvc
+
 *.csv
-.dvc/
+!.dvc/
 .ipynb_checkpoints/
 .txt
 data/raw/MachineLearningRating_v3.txt
